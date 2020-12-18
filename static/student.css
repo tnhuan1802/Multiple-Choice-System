@@ -15,6 +15,7 @@ body {
   /* Left column (menu) */
   .left {
     flex: 35%;
+    max-width: 100%;
     padding: 15px 0;
   }
   
@@ -52,7 +53,22 @@ body {
     color: black;
     display: block
   }
+
+  #myMenu li button {
+    padding: 12px;
+    text-decoration: none;
+    color: black;
+    display: block;
+    background-color: #0099FF;
+    border: none;
+    width: 100%;
+    text-align: left;
+  }
   
   #myMenu li a:hover {
+    background-color: 	#3366FF;
+  }
+
+  #myMenu li button:hover {
     background-color: 	#3366FF;
   }
