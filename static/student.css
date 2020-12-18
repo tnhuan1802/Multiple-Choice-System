@@ -2,7 +2,8 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: white;
   }
-  
+  nav ol{height:500px; width:100%;}
+  nav ol{overflow:hidden; overflow-y:scroll;}
   * {
     box-sizing: border-box;
   }
@@ -14,7 +15,7 @@ body {
   
   /* Left column (menu) */
   .left {
-    flex: 35%;
+    flex: 20%;
     max-width: 100%;
     padding: 15px 0;
   }
@@ -22,7 +23,33 @@ body {
   .left h2 {
     padding-left: 8px;
   }
-  
+ 
+  .quiz{
+    flex: 65%;
+    padding: 15px;
+    position: relative;
+  }
+
+  .questions{
+    overflow: hidden;
+    height: 500px;
+  }
+
+  .submit {
+    background-color: white;
+    width: 80px;
+    height: 40px;
+    border-radius: 15px;
+    margin: 0;
+    position: absolute;
+    top: 92.5%;
+    left: 50%;
+    -ms-transform: translateY(-92.5%);
+    transform: translateY(-80%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+  }
+
   /* Right column (page content) */
   .right {
     flex: 65%;

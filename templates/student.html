@@ -14,7 +14,7 @@
     <h2>Menu</h2>
     <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
     <ul id="myMenu">
-      <li><button type="submit" value = "html" name = "choice">Cancel</button></li>
+      <li><button type="submit" value = "quiz" name = "choice">Quiz</button></li>
       <li><a href="#">CSS</a></li>
       <li><a href="#">JavaScript</a></li>
       <li><a href="#">PHP</a></li>
@@ -25,14 +25,23 @@
       <li><a href="#">Node.js</a></li>
     </ul>
   </div>
-  {%if choice == "html"%}
-  <div class="right" style="background-color:#9999FF;">
-    <h2>Another content</h2>
-    <p>Start to type for a specific category inside the search bar to "filter" the search options.</p>
-    <p>Some text..Some text..Some text..Some text..Some text..Some text..Some text..Some text..</p>
-    <p>Some other text..Some text..Some text..Some text..Some text..Some text..Some text..Some text..</p>
-    <p>Some text..</p>
-    <p>{{func() }}</p>
+  {%if choice == "quiz"%}
+  <div class="quiz" style="background-color:#9999FF;">
+    <h2>Hello</h2>
+    <div class="questions" style="background-color: white;">
+    <nav>
+    <ol>
+      {% for q in questions %}
+      <li><p>{{q[0]}}</p></li>
+        {% set i = loop.index %}
+        {% for ans in q[1:] %}
+          <input type="radio" value="{{ans}}" name={{anslist[i]}} /> {{ans}}
+        {% endfor %}
+      {% endfor %}
+    </ol>
+    </nav>
+    </div>
+    <button type="submit" value="submission" class = "submit" name="choice">Submit</button>
   </div>
   {%else%}
   <div class="right" style="background-color:#9999FF;">
