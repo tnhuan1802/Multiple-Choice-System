@@ -8,6 +8,10 @@ def func():
 
 @student.route("/HomePage/student", methods = ['GET', 'POST'])
 def studentPage():
+    if request.method == "POST":
+        info = request.form
+        choice = info['choice']
+        return render_template('student.html', func= func, choice = choice)
     return render_template('student.html', func = func)
 
 
