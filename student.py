@@ -3,19 +3,18 @@ from flask_mysqldb import MySQL
 
 student = Blueprint('student', __name__, template_folder='templates')
 
-
 @student.route("/HomePage/student", methods = ['GET', 'POST'])
 def studentPage():
     if request.method == "POST":
         info = request.form
         choice = info['choice']
-        if choice == 'exam' or choice == 'review':
+        if choice == 'exam' or choice == 'total-grade' or choice == 'review':
             questions = [("What is C++", "Language", "CCC", "Other"), ("What is Titanic", "HH Ship", "Italy Ship")]
-            # questions = questions*10
+            questions = questions*10
             anslist = genAnsList(questions)
             return render_template('student.html', choice = choice, questions = questions, anslist = anslist)
         if choice == 'submission':
-            return render_template('submission.html')
+            render_template('submission.html')
         return render_template('student.html', choice = choice)
     return render_template('student.html')
 

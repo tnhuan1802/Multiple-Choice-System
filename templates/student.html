@@ -16,10 +16,11 @@
     <ul id="myMenu">
       <li><button type="button" id = "exam" onclick="popup()">Exam</button></li>
       <li><button type="button" id = "review" onclick="popup()">Review</button></li>
+      <li><button type="button" id = "total-grade" onclick="popup()">View Total Grades</button></li>
     </ul>
   </div>
   {%if choice == "exam" or choice == "review"%}
-  <div class="exam" style="background-color:#9999FF;">
+  <div class="right" style="background-color:#9999FF;">
     {%if choice == "exam" %}
     <h2>Exam</h2>
     {%else%}
@@ -29,7 +30,7 @@
     <nav>
     <ol>
       {% for q in questions %}
-      <li><p>{{q[0]}}</p></li>
+      <li><b {%if choice == "exam"%}style="line-height: 3.0;" {%else%} style="line-height: normal;"{%endif%}>{{q[0]}}?</b></li>
         {% set i = loop.index %}
         {% for ans in q[1:] %}
           {% if choice == "exam" %}
@@ -44,6 +45,32 @@
     </div>
     <button type="submit" value="submission" class = "submit" name="choice">Submit</button>
   </div>
+  {%elif choice == "total-grade"%}
+  <div class='right' style="background-color:#9999FF;"">
+    <h2>Total Grades</h2>
+    <div class="questions" style="background-color: white;">
+      <div class="table-area">
+      <nav>
+      <ol>
+      <table>
+        <tr>
+          <th>Subject</th>
+          <th>Test Code</th>
+          <th>Grades</th>
+        </tr>
+        {%for grade in questions%}
+          <tr>
+            <td>{{grade[1]}}</td>
+            <td>{{grade[2]}}</td>
+            <td>{{grade[3]}}</td>
+          </tr>
+        {% endfor %}
+      </table>
+      </ol>
+      </nav>
+      </div>
+    </div>
+  </div>
   {%else%}
   <div class="right" style="background-color:#9999FF;">
     <h2>Page Content</h2>
@@ -57,12 +84,18 @@
 <div id="myModal" class="modal">
 
   <!-- Modal content -->
-  <div class="modal-content">
+  <div class="modal-content" >
     <span class="close">&times;</span>
     <label for="course"><b>Course</b></label>
     <input type="text" placeholder="Current course" name="course">
-    <label for="subject"><b>Subject</b></label>
-    <input type="text" placeholder="Subject" name="subject">
+    <div class='subject'>
+      <label for="subject"><b>Subject</b></label>
+      <input type="text" placeholder="Subject" name="subject">
+    </div>
+    <div class="test-code">
+      <label for="textCode"><b>Test Code</b></label>
+      <input type="text" placeholder="Text Code" name="textCode">
+    </div>
     <button type="submit" class="join" value="exam" name="choice">Join Quiz</button>
   </div>
 
@@ -72,43 +105,79 @@
 <script>
   var btn = document.getElementById("exam");
   var viewBtn = document.getElementById("review");
+  var viewTotalBtn = document.getElementById('total-grade')
   var span = document.getElementsByClassName("close")[0];
   var modal = document.getElementById("myModal")
+  var modalContent = document.getElementsByClassName('modal-content')[0]
+  var testCode = document.getElementsByClassName('test-code')[0];
   var join = document.getElementsByClassName('join')[0];
+  var subject = document.getElementsByClassName('subject')[0]
   btn.onclick = function() {
+    modalContent.style.height = "25%";
+    testCode.style.display = 'none';
+    subject.style.display = 'inline';
+    join.style.top = '80%';
     join.setAttribute('value', "exam")
     modal.style.display = "block";
   }
   viewBtn.onclick = function(){
-    modal.style.display = "block";
+    modalContent.style.height = "33%";
+    testCode.style.display = 'inline';
+    subject.style.display = 'inline';
+    join.style.top = '80%';
     join.setAttribute('value', "review")
+    modal.style.display = "block";
   }
-  span.onclick = function() {
+  viewTotalBtn.onclick = function(){
+    modalContent.style.height = "20%";
+    testCode.style.display = 'none';
+    subject.style.display = 'none';
+    join.style.top = '70%';
+    join.setAttribute('value', "total-grade")
+    modal.style.display = "block";
+  }
+  span.onclick = function() {  
     modal.style.display = "none";
   }
   window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
   }
 </script>
 
 <script>
     function myFunction() {
-      var input, filter, ul, li, a, i;
+      var input, filter, ul, li, btn, i;
       input = document.getElementById("mySearch");
       filter = input.value.toUpperCase();
       ul = document.getElementById("myMenu");
       li = ul.getElementsByTagName("li");
       for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        btn = li[i].getElementsByTagName("button")[0];
+        if (btn.innerHTML.toUpperCase().indexOf(filter) > -1) {
           li[i].style.display = "";
         } else {
           li[i].style.display = "none";
         }
       }
     }
+</script>
+
+<script>
+  function createTable(totalGrade){
+    var table = document.getElementsByClassName('table-area')
+    for (var i = 0; i < totalGrade.length; i++){
+      var tr = document.createElement('tr');
+      tr.appendChild(document.createElement('td'));
+      tr.appendChild(document.createElement('td'));
+      tr.appendChild(document.createElement('td'));
+      tr.cells[0].appendChild(totalGrade[0][1])
+      tr.cells[1].appendChild(totalGrade[0][2])
+      tr.cells[2].appendChild(totalGrade[0][3])
+      table.appendChild(tr)
+    }
+  }
 </script>
 
 </body>

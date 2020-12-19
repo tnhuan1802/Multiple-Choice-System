@@ -29,9 +29,7 @@ button {
     transform: translateY(30%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
-    
     width: 15%;
-
 }
 
 button:hover {

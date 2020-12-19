@@ -2,7 +2,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: white;
   }
-  nav ol{height:500px; width:100%;}
+  nav ol{height:520px; width:100%;}
   nav ol{overflow:hidden; overflow-y:scroll;}
   * {
     box-sizing: border-box;
@@ -32,7 +32,7 @@ body {
 
   .questions{
     overflow: visible;
-    height: 500px;
+    height: 520px;
   }
 
   .submit {
@@ -42,9 +42,9 @@ body {
     border-radius: 15px;
     margin: 0;
     position: absolute;
-    top: 92.5%;
+    top: 93%;
     left: 50%;
-    -ms-transform: translateY(-92.5%);
+    -ms-transform: translateY(-93%);
     transform: translateY(-80%);
     -ms-transform: translateX(-50%);
     transform: translateX(-50%);
@@ -64,17 +64,21 @@ body {
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
   }
-  
+  .subject{
+    display: none;
+  }
+  .text-code{
+    display: none;
+  }
   /* Modal Content/Box */
   .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 10% auto; /* 15% from the top and centered */
+    position: relative;
     padding: 20px;
-    -ms-transform: translateY(+50%);
-    transform: translateY(+50%);
     border: 1px solid #888;
     border-radius: 15px;
-    width: 50%; /* Could be more or less, depending on screen size */
+    width: 25%; /* Could be more or less, depending on screen size */
     height: 25%;
   }
 
@@ -119,6 +123,7 @@ body {
   .right {
     flex: 65%;
     padding: 15px;
+    position: relative;
   }
   
   /* Style the search box */
@@ -140,6 +145,7 @@ body {
   }
 
   #myMenu li button {
+    font-size: medium;
     padding: 12px;
     text-decoration: none;
     color: black;
@@ -154,4 +160,16 @@ body {
     background-color: 	#3366FF;
   }
 
+  .table-area{
+    font-family: arial, sans-serif;
+    /* border-collapse: collapse; */
+    width: 100%;
+    position: relative;
+  }
+
+  .table-area td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
   
