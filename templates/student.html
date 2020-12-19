@@ -14,20 +14,17 @@
     <h2>Menu</h2>
     <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
     <ul id="myMenu">
-      <li><button type="submit" value = "quiz" name = "choice">Quiz</button></li>
-      <li><a href="#">CSS</a></li>
-      <li><a href="#">JavaScript</a></li>
-      <li><a href="#">PHP</a></li>
-      <li><a href="#">Python</a></li>
-      <li><a href="#">jQuery</a></li>
-      <li><a href="#">SQL</a></li>
-      <li><a href="#">Bootstrap</a></li>
-      <li><a href="#">Node.js</a></li>
+      <li><button type="button" id = "exam" onclick="popup()">Exam</button></li>
+      <li><button type="button" id = "review" onclick="popup()">Review</button></li>
     </ul>
   </div>
-  {%if choice == "quiz"%}
-  <div class="quiz" style="background-color:#9999FF;">
-    <h2>Hello</h2>
+  {%if choice == "exam" or choice == "review"%}
+  <div class="exam" style="background-color:#9999FF;">
+    {%if choice == "exam" %}
+    <h2>Exam</h2>
+    {%else%}
+    <h2>Review Test</h2>
+    {%endif%}
     <div class="questions" style="background-color: white;">
     <nav>
     <ol>
@@ -35,7 +32,11 @@
       <li><p>{{q[0]}}</p></li>
         {% set i = loop.index %}
         {% for ans in q[1:] %}
+          {% if choice == "exam" %}
           <input type="radio" value="{{ans}}" name={{anslist[i]}} /> {{ans}}
+          {%else%}
+          <p>{{ans}}</p>
+          {%endif%}
         {% endfor %}
       {% endfor %}
     </ol>
@@ -50,12 +51,47 @@
     <p>Some text..Some text..Some text..Some text..Some text..Some text..Some text..Some text..</p>
     <p>Some other text..Some text..Some text..Some text..Some text..Some text..Some text..Some text..</p>
     <p>Some text..</p>
-    <p>{{func() }}</p>
   </div>
   {%endif%}
-  
+</div>
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <label for="course"><b>Course</b></label>
+    <input type="text" placeholder="Current course" name="course">
+    <label for="subject"><b>Subject</b></label>
+    <input type="text" placeholder="Subject" name="subject">
+    <button type="submit" class="join" value="exam" name="choice">Join Quiz</button>
+  </div>
+
 </div>
 </form>
+ <!-- for searching -->
+<script>
+  var btn = document.getElementById("exam");
+  var viewBtn = document.getElementById("review");
+  var span = document.getElementsByClassName("close")[0];
+  var modal = document.getElementById("myModal")
+  var join = document.getElementsByClassName('join')[0];
+  btn.onclick = function() {
+    join.setAttribute('value', "exam")
+    modal.style.display = "block";
+  }
+  viewBtn.onclick = function(){
+    modal.style.display = "block";
+    join.setAttribute('value', "review")
+  }
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+  window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+  }
+</script>
 
 <script>
     function myFunction() {
@@ -73,7 +109,7 @@
         }
       }
     }
-    </script>
+</script>
 
 </body>
 </html>

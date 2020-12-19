@@ -18,10 +18,10 @@ def loggin():
         # info = request.form
         # userName = info['uname']
         # password = info['psw']
-        cur = mysql.connection.cursor()
-        cur.execute("INSERT INTO employee VALUES (%s, %s, %s, %s, %s, %s)", ('TH0006969', 'Tran', 'Huan', 'Other', '158, Ly Thuong Kiet, Quan 10, Ho Chi Minh', '01234567891'))
-        mysql.connection.commit()
-        cur.close()
+        # cur = mysql.connection.cursor()
+        # cur.execute("INSERT INTO employee VALUES (%s, %s, %s, %s, %s, %s)", ('TH0006969', 'Tran', 'Huan', 'Other', '158, Ly Thuong Kiet, Quan 10, Ho Chi Minh', '01234567891'))
+        # mysql.connection.commit()
+        # cur.close()
         return redirect('/HomePage/student')
     return render_template('login.html')
 
