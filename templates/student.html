@@ -14,17 +14,24 @@
     <h2>Menu</h2>
     <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
     <ul id="myMenu">
-      <li><button type="button" id = "exam" onclick="popup()">Exam</button></li>
-      <li><button type="button" id = "review" onclick="popup()">Review</button></li>
-      <li><button type="button" id = "total-grade" onclick="popup()">View Total Grades</button></li>
+      <li><button type="button" id = "exam" onclick="popup()"><b>Exam</b></button></li>
+      <li><button type="button" id = "review" onclick="popup()"><b>Review</b></button></li>
+      <li><button type="button" id = "view-ans" onclick="popup()"><b>Answer</b></button></li>
+      <li><button type="button" id = "view-paper" onclick="popup()"><b>Exam paper</b></button></li>
+      <li><button type="button" id = "exam-grade" onclick="popup()"><b>View Exam Grades</b></button></li>
+      <li><button type="button" id = "total-grade" onclick="popup()"><b>View Total Grades</b></button></li>
     </ul>
   </div>
-  {%if choice == "exam" or choice == "review"%}
+  {%if choice == "exam" or choice == "review" or choice == "view-ans" or choice == "view-paper"%}
   <div class="right" style="background-color:#9999FF;">
     {%if choice == "exam" %}
     <h2>Exam</h2>
-    {%else%}
+    {%elif choice == "review"%}
     <h2>Review Test</h2>
+    {%elif choice == "view-paper"%}
+    <h2>Exam Paper</h2>
+    {%else%}
+    <h2>Test Answer</h2>
     {%endif%}
     <div class="questions" style="background-color: white;">
     <nav>
@@ -43,7 +50,9 @@
     </ol>
     </nav>
     </div>
+    {% if choice == "exam" %}
     <button type="submit" value="submission" class = "submit" name="choice">Submit</button>
+    {%endif%}
   </div>
   {%elif choice == "total-grade"%}
   <div class='right' style="background-color:#9999FF;"">
@@ -79,6 +88,19 @@
     <p>Some other text..Some text..Some text..Some text..Some text..Some text..Some text..Some text..</p>
     <p>Some text..</p>
   </div>
+  {%if choice == "exam-grade"%}
+  <div id="grade-popup" class="grade-popup" style="display: block;">
+    <div class="grade-content" >
+      <span class="close">&times;</span>
+      <p><b>View Grades</b></p>
+      <span style="float: left;"><b>Subject</b></span><span style="float: right; white-space: pre;">{{questions[0][1]}}</span>
+      <p><br></p>
+      <span style="float: left;"><b>Test Code</b></span><span style="float: right;">{{questions[0][2]}}</span>
+      <p><br></p>
+      <span style="float: left;"><b>Grades</b></span><span style="float: right;">{{questions[0][3]}}</span>
+    </div>
+  </div>
+  {%endif%}
   {%endif%}
 </div>
 <div id="myModal" class="modal">
@@ -96,7 +118,7 @@
       <label for="textCode"><b>Test Code</b></label>
       <input type="text" placeholder="Text Code" name="textCode">
     </div>
-    <button type="submit" class="join" value="exam" name="choice">Join Quiz</button>
+    <button type="submit" class="join" value="exam" name="choice">OK</button>
   </div>
 
 </div>
@@ -105,13 +127,19 @@
 <script>
   var btn = document.getElementById("exam");
   var viewBtn = document.getElementById("review");
+  var ansBtn = document.getElementById("view-ans");
+  var paperBtn = document.getElementById("view-paper");
+  var viewGradeBtn = document.getElementById('exam-grade')
   var viewTotalBtn = document.getElementById('total-grade')
   var span = document.getElementsByClassName("close")[0];
   var modal = document.getElementById("myModal")
+  var gradePopup = document.getElementById("grade-popup")
   var modalContent = document.getElementsByClassName('modal-content')[0]
   var testCode = document.getElementsByClassName('test-code')[0];
   var join = document.getElementsByClassName('join')[0];
   var subject = document.getElementsByClassName('subject')[0]
+  var subBtn = document.getElementsByClassName('submit')[0]
+
   btn.onclick = function() {
     modalContent.style.height = "25%";
     testCode.style.display = 'none';
@@ -128,6 +156,30 @@
     join.setAttribute('value', "review")
     modal.style.display = "block";
   }
+  ansBtn.onclick = function(){
+    modalContent.style.height = "33%";
+    testCode.style.display = 'inline';
+    subject.style.display = 'inline';
+    join.style.top = '80%';
+    join.setAttribute('value', "view-ans")
+    modal.style.display = "block";
+  }
+  paperBtn.onclick = function(){
+    modalContent.style.height = "33%";
+    testCode.style.display = 'inline';
+    subject.style.display = 'inline';
+    join.style.top = '80%';
+    join.setAttribute('value', "view-paper")
+    modal.style.display = "block";
+  }
+  viewGradeBtn.onclick = function(){
+    modalContent.style.height = "25%";
+    testCode.style.display = 'none';
+    subject.style.display = 'inline';
+    join.style.top = '80%';
+    join.setAttribute('value', "exam-grade")
+    modal.style.display = "block";
+  }
   viewTotalBtn.onclick = function(){
     modalContent.style.height = "20%";
     testCode.style.display = 'none';
@@ -138,10 +190,12 @@
   }
   span.onclick = function() {  
     modal.style.display = "none";
+    gradePopup.style.display = "none";
   }
   window.onclick = function(event) {
-    if (event.target == modal) {
+    if (event.target == modal || event.target == gradePopup) {
       modal.style.display = "none";
+      gradePopup.style.display = "none";
     }
   }
 </script>
@@ -162,22 +216,6 @@
         }
       }
     }
-</script>
-
-<script>
-  function createTable(totalGrade){
-    var table = document.getElementsByClassName('table-area')
-    for (var i = 0; i < totalGrade.length; i++){
-      var tr = document.createElement('tr');
-      tr.appendChild(document.createElement('td'));
-      tr.appendChild(document.createElement('td'));
-      tr.appendChild(document.createElement('td'));
-      tr.cells[0].appendChild(totalGrade[0][1])
-      tr.cells[1].appendChild(totalGrade[0][2])
-      tr.cells[2].appendChild(totalGrade[0][3])
-      table.appendChild(tr)
-    }
-  }
 </script>
 
 </body>
