@@ -2,7 +2,8 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: white;
   }
-  
+  nav ol{height:520px; width:100%;}
+  nav ol{overflow:hidden; overflow-y:scroll;}
   * {
     box-sizing: border-box;
   }
@@ -14,7 +15,7 @@ body {
   
   /* Left column (menu) */
   .left {
-    flex: 35%;
+    flex: 20%;
     max-width: 100%;
     padding: 15px 0;
   }
@@ -22,11 +23,107 @@ body {
   .left h2 {
     padding-left: 8px;
   }
+ 
+  .exam{
+    flex: 65%;
+    padding: 15px;
+    position: relative;
+  }
+
+  .questions{
+    overflow: visible;
+    height: 520px;
+  }
+
+  .submit {
+    background-color: white;
+    width: 80px;
+    height: 40px;
+    border-radius: 15px;
+    margin: 0;
+    position: absolute;
+    top: 93%;
+    left: 50%;
+    -ms-transform: translateY(-93%);
+    transform: translateY(-80%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+  }
+
+  /* for model decore */
+
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0%;
+    top: 0%;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  .subject{
+    display: none;
+  }
+  .text-code{
+    display: none;
+  }
+  /* Modal Content/Box */
+  .modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; /* 15% from the top and centered */
+    position: relative;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 15px;
+    width: 25%; /* Could be more or less, depending on screen size */
+    height: 25%;
+  }
+
+  input[type=text]{
+    width: 100%;
+    padding: 12px 6px;
+    margin: 5px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+  }
+  .join{
+    background-color: white;
+    border: 1px solid black;
+    width: 80px;
+    height: 40px;
+    border-radius: 15px;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    -ms-transform: translateY(-80%);
+    transform: translateY(-80%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+  }
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+  }
   
+  .close:hover,
+  .close:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
   /* Right column (page content) */
   .right {
     flex: 65%;
     padding: 15px;
+    position: relative;
   }
   
   /* Style the search box */
@@ -46,15 +143,9 @@ body {
     height: 500px;
     max-height: 500px;
   }
-  
-  #myMenu li a {
-    padding: 12px;
-    text-decoration: none;
-    color: black;
-    display: block
-  }
 
   #myMenu li button {
+    font-size: medium;
     padding: 12px;
     text-decoration: none;
     color: black;
@@ -64,11 +155,21 @@ body {
     width: 100%;
     text-align: left;
   }
-  
-  #myMenu li a:hover {
-    background-color: 	#3366FF;
-  }
 
   #myMenu li button:hover {
     background-color: 	#3366FF;
   }
+
+  .table-area{
+    font-family: arial, sans-serif;
+    /* border-collapse: collapse; */
+    width: 100%;
+    position: relative;
+  }
+
+  .table-area td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
