@@ -4,7 +4,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Bank Question</title>
         <link href = "../static/login.css" rel = "stylesheet">
-
     </head>
 
     <body>
@@ -15,9 +14,12 @@
             <div class="container">
                 <label for="uname"><b>Username</b></label>
                 <input type="text" placeholder="Enter Username" name="uname" required>
-            
+                
                 <label for="psw"><b>Password</b></label>
                 <input type="password" placeholder="Enter Password" name="psw" required>
+                {%if valid == False %}
+                <p style="display: inline-block; color: red;">Incorrect username or password</p>
+                {%endif%}
                 <button type="submit">Login</button>
                 <label>
                   <input type="checkbox" checked="checked" name="remember"> Remember me
