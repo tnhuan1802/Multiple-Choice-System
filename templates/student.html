@@ -4,7 +4,7 @@
 <meta name="studentview" content="width=device-width, initial-scale=1">
 <link href = "../static/student.css" rel = "stylesheet">
 </head>
-<body>gu
+<body>
 <form method="POST" action = "">
 <h2>Search Menu</h2>
 <p>Start to type for a specific category inside the search bar to "filter" the search options.</p>
@@ -14,25 +14,71 @@
     <h2>Menu</h2>
     <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
     <ul id="myMenu">
-      <li><button type="submit" value = "html" name = "choice"></button></li>
-      <li><a href="#">CSS</a></li>
-      <li><a href="#">JavaScript</a></li>
-      <li><a href="#">PHP</a></li>
-      <li><a href="#">Python</a></li>
-      <li><a href="#">jQuery</a></li>
-      <li><a href="#">SQL</a></li>
-      <li><a href="#">Bootstrap</a></li>
-      <li><a href="#">Node.js</a></li>
+      <li><button type="button" id = "exam" onclick="popup()"><b>Exam</b></button></li>
+      <li><button type="button" id = "review" onclick="popup()"><b>Review</b></button></li>
+      <li><button type="button" id = "view-ans" onclick="popup()"><b>Answer</b></button></li>
+      <li><button type="button" id = "view-paper" onclick="popup()"><b>Exam paper</b></button></li>
+      <li><button type="button" id = "exam-grade" onclick="popup()"><b>View Exam Grades</b></button></li>
+      <li><button type="button" id = "total-grade" onclick="popup()"><b>View Total Grades</b></button></li>
     </ul>
   </div>
-  {%if choice == "html"%}
+  {%if choice == "exam" or choice == "review" or choice == "view-ans" or choice == "view-paper"%}
   <div class="right" style="background-color:#9999FF;">
-    <h2>Another content</h2>
-    <p>Start to type for a specific category inside the search bar to "filter" the search options.</p>
-    <p>Some text..Some text..Some text..Some text..Some text..Some text..Some text..Some text..</p>
-    <p>Some other text..Some text..Some text..Some text..Some text..Some text..Some text..Some text..</p>
-    <p>Some text..</p>
-    <p>{{func() }}</p>
+    {%if choice == "exam" %}
+    <h2>Exam</h2>
+    {%elif choice == "review"%}
+    <h2>Review Test</h2>
+    {%elif choice == "view-paper"%}
+    <h2>Exam Paper</h2>
+    {%else%}
+    <h2>Test Answer</h2>
+    {%endif%}
+    <div class="questions" style="background-color: white;">
+    <nav>
+    <ol>
+      {% for q in questions %}
+      <li><b {%if choice == "exam"%}style="line-height: 3.0;" {%else%} style="line-height: normal;"{%endif%}>{{q[0]}}?</b></li>
+        {% set i = loop.index %}
+        {% for ans in q[1:] %}
+          {% if choice == "exam" %}
+          <input type="radio" value="{{ans}}" name={{anslist[i]}} /> {{ans}}
+          {%else%}
+          <p>{{ans}}</p>
+          {%endif%}
+        {% endfor %}
+      {% endfor %}
+    </ol>
+    </nav>
+    </div>
+    {% if choice == "exam" %}
+    <button type="submit" value="submission" class = "submit" name="choice">Submit</button>
+    {%endif%}
+  </div>
+  {%elif choice == "total-grade"%}
+  <div class='right' style="background-color:#9999FF;"">
+    <h2>Total Grades</h2>
+    <div class="questions" style="background-color: white;">
+      <div class="table-area">
+      <nav>
+      <ol>
+      <table>
+        <tr>
+          <th>Subject</th>
+          <th>Test Code</th>
+          <th>Grades</th>
+        </tr>
+        {%for grade in questions%}
+          <tr>
+            <td>{{grade[1]}}</td>
+            <td>{{grade[2]}}</td>
+            <td>{{grade[3]}}</td>
+          </tr>
+        {% endfor %}
+      </table>
+      </ol>
+      </nav>
+      </div>
+    </div>
   </div>
   {%else%}
   <div class="right" style="background-color:#9999FF;">
@@ -41,30 +87,136 @@
     <p>Some text..Some text..Some text..Some text..Some text..Some text..Some text..Some text..</p>
     <p>Some other text..Some text..Some text..Some text..Some text..Some text..Some text..Some text..</p>
     <p>Some text..</p>
-    <p>{{func() }}</p>
+  </div>
+  {%if choice == "exam-grade"%}
+  <div id="grade-popup" class="grade-popup" style="display: block;">
+    <div class="grade-content" >
+      <span class="close">&times;</span>
+      <p><b>View Grades</b></p>
+      <span style="float: left;"><b>Subject</b></span><span style="float: right; white-space: pre;">{{questions[0][1]}}</span>
+      <p><br></p>
+      <span style="float: left;"><b>Test Code</b></span><span style="float: right;">{{questions[0][2]}}</span>
+      <p><br></p>
+      <span style="float: left;"><b>Grades</b></span><span style="float: right;">{{questions[0][3]}}</span>
+    </div>
   </div>
   {%endif%}
-  
+  {%endif%}
+</div>
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content" >
+    <span class="close">&times;</span>
+    <label for="course"><b>Course</b></label>
+    <input type="text" placeholder="Current course" name="course">
+    <div class='subject'>
+      <label for="subject"><b>Subject</b></label>
+      <input type="text" placeholder="Subject" name="subject">
+    </div>
+    <div class="test-code">
+      <label for="textCode"><b>Test Code</b></label>
+      <input type="text" placeholder="Text Code" name="textCode">
+    </div>
+    <button type="submit" class="join" value="exam" name="choice">OK</button>
+  </div>
+
 </div>
 </form>
+ <!-- for searching -->
+<script>
+  var btn = document.getElementById("exam");
+  var viewBtn = document.getElementById("review");
+  var ansBtn = document.getElementById("view-ans");
+  var paperBtn = document.getElementById("view-paper");
+  var viewGradeBtn = document.getElementById('exam-grade')
+  var viewTotalBtn = document.getElementById('total-grade')
+  var span = document.getElementsByClassName("close")[0];
+  var modal = document.getElementById("myModal")
+  var gradePopup = document.getElementById("grade-popup")
+  var modalContent = document.getElementsByClassName('modal-content')[0]
+  var testCode = document.getElementsByClassName('test-code')[0];
+  var join = document.getElementsByClassName('join')[0];
+  var subject = document.getElementsByClassName('subject')[0]
+  var subBtn = document.getElementsByClassName('submit')[0]
+
+  btn.onclick = function() {
+    modalContent.style.height = "25%";
+    testCode.style.display = 'none';
+    subject.style.display = 'inline';
+    join.style.top = '80%';
+    join.setAttribute('value', "exam")
+    modal.style.display = "block";
+  }
+  viewBtn.onclick = function(){
+    modalContent.style.height = "33%";
+    testCode.style.display = 'inline';
+    subject.style.display = 'inline';
+    join.style.top = '80%';
+    join.setAttribute('value', "review")
+    modal.style.display = "block";
+  }
+  ansBtn.onclick = function(){
+    modalContent.style.height = "33%";
+    testCode.style.display = 'inline';
+    subject.style.display = 'inline';
+    join.style.top = '80%';
+    join.setAttribute('value', "view-ans")
+    modal.style.display = "block";
+  }
+  paperBtn.onclick = function(){
+    modalContent.style.height = "33%";
+    testCode.style.display = 'inline';
+    subject.style.display = 'inline';
+    join.style.top = '80%';
+    join.setAttribute('value', "view-paper")
+    modal.style.display = "block";
+  }
+  viewGradeBtn.onclick = function(){
+    modalContent.style.height = "25%";
+    testCode.style.display = 'none';
+    subject.style.display = 'inline';
+    join.style.top = '80%';
+    join.setAttribute('value', "exam-grade")
+    modal.style.display = "block";
+  }
+  viewTotalBtn.onclick = function(){
+    modalContent.style.height = "20%";
+    testCode.style.display = 'none';
+    subject.style.display = 'none';
+    join.style.top = '70%';
+    join.setAttribute('value', "total-grade")
+    modal.style.display = "block";
+  }
+  span.onclick = function() {  
+    modal.style.display = "none";
+    gradePopup.style.display = "none";
+  }
+  window.onclick = function(event) {
+    if (event.target == modal || event.target == gradePopup) {
+      modal.style.display = "none";
+      gradePopup.style.display = "none";
+    }
+  }
+</script>
 
 <script>
     function myFunction() {
-      var input, filter, ul, li, a, i;
+      var input, filter, ul, li, btn, i;
       input = document.getElementById("mySearch");
       filter = input.value.toUpperCase();
       ul = document.getElementById("myMenu");
       li = ul.getElementsByTagName("li");
       for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        btn = li[i].getElementsByTagName("button")[0];
+        if (btn.innerHTML.toUpperCase().indexOf(filter) > -1) {
           li[i].style.display = "";
         } else {
           li[i].style.display = "none";
         }
       }
     }
-    </script>
+</script>
 
 </body>
 </html>
