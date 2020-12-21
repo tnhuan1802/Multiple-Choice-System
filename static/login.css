@@ -1,10 +1,24 @@
+html, body {
+  height: 100%;
+
+}
+
+html {
+  display: table;
+  margin: auto;
+}
+
 body {
   font-family: Arial, Helvetica, sans-serif;
   background-color: white;
+  display: table-cell;
+  vertical-align: middle;
 }
 /* Bordered form */
 form {
-  border: 3px solid #f1f1f1;
+  border: none;
+  background-color: #e1e1ea;
+  height: 50%;
 }
 
 /* Full-width inputs */
@@ -43,7 +57,9 @@ button:hover {
 /* Center the avatar image inside this container */
 .imgcontainer {
   text-align: center;
-  margin: 24px 0 12px 0;
+  margin: auto;
+  height: 50%;
+  background-color: red;
 }
 
 /* Avatar image */
@@ -54,7 +70,13 @@ img.avatar {
 
 /* Add padding to containers */
 .container {
+  align-items: center;
   padding: 16px;
+  width: 40%;
+  top: 40%;
+  left: 70%;
+  -ms-transform: translateX(70%);
+  transform: translateX(70%);
 }
 
 /* The "Forgot password" text */

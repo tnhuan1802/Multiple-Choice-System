@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from flask_mysqldb import MySQL
 from student import student
+from manager import manager
 from mysql import database
 from user import User
 app = Flask(__name__)
@@ -17,7 +18,6 @@ database.mysql = mysql
 @app.route("/HomePage", methods = ['GET', 'POST'])
 def loggin():
     if request.method == "POST":
-        app.register_blueprint(student)
         info = request.form
         userName = info['uname']
         password = info['psw']
@@ -25,7 +25,12 @@ def loggin():
         if len(user) == 0:
             return render_template('login.html', valid = False)
         user = User(user[0][0], user[0][1], user[0][2], user[0][3], userName, password)
-        return redirect('/HomePage/student')
+        if user.role == 'Student':
+            app.register_blueprint(student)
+            return redirect('/HomePage/student')
+        if user.role == 'Manager':
+            app.register_blueprint(manager)
+            return redirect('/HomePage/manager')
     return render_template('login.html')
 
 def checkValidUser(userName, password):
