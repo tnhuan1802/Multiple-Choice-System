@@ -2,10 +2,10 @@
 <html>
 <head>
 <meta name="studentview" content="width=device-width, initial-scale=1">
-<link href = "../static/student.css" rel = "stylesheet">
+<link href = "../static/incharge.css" rel = "stylesheet">
 </head>
-<body>gu
-<form method="POST" action = "">
+<body>
+
 <h2>Search Menu</h2>
 <p>Start to type for a specific category inside the search bar to "filter" the search options.</p>
 
@@ -14,39 +14,22 @@
     <h2>Menu</h2>
     <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
     <ul id="myMenu">
-      <li><button type="submit" value = "html" name = "choice"></button></li>
-      <li><a href="#">CSS</a></li>
-      <li><a href="#">JavaScript</a></li>
-      <li><a href="#">PHP</a></li>
-      <li><a href="#">Python</a></li>
-      <li><a href="#">jQuery</a></li>
-      <li><a href="#">SQL</a></li>
-      <li><a href="#">Bootstrap</a></li>
-      <li><a href="#">Node.js</a></li>
+      <li><a href="#">Add Question</a></li>
+      <li><a href="#">Update Question</a></li>
+      <li><a href="#">Confirm Test</a></li>
+      <li><a href="#">Review Test</a></li>
+      <li><a href="#">View Student Result</a></li>
     </ul>
   </div>
-  {%if choice == "html"%}
-  <div class="right" style="background-color:#9999FF;">
-    <h2>Another content</h2>
-    <p>Start to type for a specific category inside the search bar to "filter" the search options.</p>
-    <p>Some text..Some text..Some text..Some text..Some text..Some text..Some text..Some text..</p>
-    <p>Some other text..Some text..Some text..Some text..Some text..Some text..Some text..Some text..</p>
-    <p>Some text..</p>
-    <p>{{func() }}</p>
-  </div>
-  {%else%}
+  
   <div class="right" style="background-color:#9999FF;">
     <h2>Page Content</h2>
     <p>Start to type for a specific category inside the search bar to "filter" the search options.</p>
     <p>Some text..Some text..Some text..Some text..Some text..Some text..Some text..Some text..</p>
     <p>Some other text..Some text..Some text..Some text..Some text..Some text..Some text..Some text..</p>
     <p>Some text..</p>
-    <p>{{func() }}</p>
   </div>
-  {%endif%}
-  
 </div>
-</form>
 
 <script>
     function myFunction() {
