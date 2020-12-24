@@ -15,15 +15,17 @@ app.config['MYSQL_DB'] = 'MyDB'
 mysql = MySQL(app)
 database.mysql = mysql
 
-@app.route("/HomePage", methods = ['GET', 'POST'])
+@app.route("/index", methods = ['GET', 'POST'])
 def login():
     if request.method == "POST":
-        app.register_blueprint(student)
+        app.register_blueprint(incharge)
         info = request.form
         userName = info['uname']
         password = info['psw']
+        User.username = userName
+        User.password = password
         # user = checkValidUser(userName, password)
-        return redirect('/HomePage/student')
+        return redirect('/index/incharge')
         # if len(user) == 0:
         #     return render_template('login.html', valid = False)
         # user = User(user[0][0], user[0][1], user[0][2], user[0][3], userName, password)

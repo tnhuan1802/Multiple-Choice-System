@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, Blueprint
 from flask_mysqldb import MySQL
 from mysql import database
-
+from user import User
 student = Blueprint('student', __name__, template_folder='templates')
 
 @student.route("/HomePage/student", methods = ['GET', 'POST'])
@@ -17,7 +17,7 @@ def studentPage():
         if choice == 'submission':
             return render_template('submission.html')
         return render_template('student.html', choice = choice)
-    return render_template('student.html')
+    return render_template('student.html', uname = User.username)
 
 def genAnsList(questions):
     ansl = []
