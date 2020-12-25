@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Multiple Choice System</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+  .fakeimg {
+    height: 200px;
+    background: #aaa;
+  }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <a class="navbar-brand" href="/index/incharge">Home</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+        <a class="nav-link" href="question">Question</a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="/index/incharge/exam">Exam</a>
+    </ul>
+  </div>  
+</nav>
+
+<div class="container" style="margin-top:30px">
+  <div class="row">
+    <div class="col-sm-8">
+      <h2>Option</h2>
+      <div id="accordion">
+        <!--Create Test-->
+        <div class="card">
+          <div class="card-header">
+            <a class="card-link" data-toggle="collapse" href="#createTest">
+              Create Test
+            </a>
+          </div>
+          <div id="createTest" class="collapse" data-parent="#accordion">
+            <div class="card-body">
+                <form action="/action_page.php">
+                    <div class="form-group">
+                        <!--Total Question-->
+                        <label for="totalQuestion">Total question:</label>
+                        <input id = "totalQuestion" placeholder="...">
+                        <i style="color: red; display:inline;">Total questions should be lesser than 40.</i>
+                        <br>
+                        <br>
+                        <!--List Question-->
+                        <div class="card">
+                            <div class="card-header">
+                              <a class="collapsed card-link" data-toggle="collapse" href="#listQuestion">
+                              List Question
+                              </a>
+                            </div>
+                            <div id="listQuestion" class="collapse" data-parent="#createTest">
+                              <div class="card-body" >
+                                <ol class="list-group" >
+                                  {% for q in listQuestion %}
+                                  
+                                  <a data-toggle = "modal" data-target="#questionModal" data-id = {{q[0]}} data-content = '{{q[1]}}' data-answer = '{{q[2]}}' class="list-group-item list-group-item-action" >
+                                  Question {{ q[0] }}
+                                  </a>
+                                  {% endfor %}
+                                </ol>
+                  
+                                <!-- Modal -->
+                                <div class="modal fade" id="questionModal" tabindex="-1" role="dialog" aria-labelledby="questionModalTitle" aria-hidden="true">
+                                  <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <h5 class="modal-title" id="questionModalLongTitle"> Question Editor</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                        </button>
+                                      </div>
+                                      <div class="modal-body">
+                                        <div class = "card-holder">
+                                          <label>Question:</label>
+                                          <div class="card" id = "questionBox">
+                                            <div class="card-body" id = "questionContent" contenteditable="True">
+                                            </div>
+                                          </div>
+                                          <label>Answer:</label>
+                                          <div class="card" id = "answerBox">
+                                            <div class="card-body" id = "answer_1" style="display: none;">
+                                            </div>
+                                            <div class="card-body" id = "answer_2" style="display: none;">
+                                            </div>
+                                            <div class="card-body" id = "answer_3" style="display: none;">
+                                            </div>
+                                            <div class="card-body" id = "answer_4" style="display: none;">
+                                            </div>
+                                            <div class="card-body" id = "answer_5" style="display: none;">
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Choose</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                              </div>
+                            </div>
+                          </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </form>
+          </div>
+        </div>
+        <!--View a specific test-->
+        <div class="card">
+          <div class="card-header">
+            <a class="collapsed card-link" data-toggle="collapse" href="#viewTest">
+            View a specific Test
+            </a>
+          </div>
+          <div id="viewTest" class="collapse" data-parent="#accordion">
+            <div class="card-body" >
+                <form action = "/action_page.php">
+                    <select class="selectpicker">
+                        <option selected = "selected" name = "subject" value = "0">Subject</option>
+                        <option name = "subject" value = "1">Database System</option>
+                        <option name = "subject" value = "2">Principles of Programming Language</option>
+                        <option name = "subject" value = "3">Computer Network</option>
+                      </select>
+                    <select class="selectpicker">
+                        <option selected = "selected">Semester</option>
+                        <option name = "semesterId" value = "1">191</option>
+                        <option name = "semesterId" value = "2">192</option>
+                        <option name = "semesterId" value = "3">201</option>
+                      </select>
+                    <br>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>  
+            </div>
+          </div>
+        </div>
+      </div>    
+    </div>
+  </div>
+</div>
+<script>
+  function listAnswer(choice){
+    var listAns = document.getElementById("listAnswer").getElementsByTagName("div");
+    
+    for (i = 0; i < parseInt(choice); i++) {
+      console.log(i);
+      listAns[i].style.display = "";
+      for (j = 4; j > parseInt(choice) - 1; j--){
+      	listAns[j].style.display = "none"
+      }
+    }
+  }
+  function createAnswerBox (answer, index) { 
+    var answerId = "answer_" + String(index)
+    $("#answerBox").append(
+      '<div class="card" id = "' + answerId + '"><div class="card-body" id = "' + answerId +"content" + '" contenteditable="True">' + answer +'</div></div>'
+    )
+  }
+  $('#questionModal').on('show.bs.modal', function (event) {
+  var question = $(event.relatedTarget)
+  var qId = question.data('id')
+  var qContent = question.data('content')
+  var qAnswer = JSON.parse(question.data('answer').replaceAll("\'", "\""))
+  var modal = $(this)
+  $("#questionContent").text(qContent)
+  answerBox = document.getElementById("answerBox").getElementsByClassName('card-body')
+  console.log(answerBox[0])
+  for (i = 0; i < qAnswer.length; i++) {
+      answerBox[i].innerHTML = qAnswer[i]
+      answerBox[i].style.display = ""
+      for (j = 4; j > qAnswer.length - 1; j--){
+      	answerBox[j].style.display = "none"
+      }
+    }
+})
+</script>
+</body>
+</html>

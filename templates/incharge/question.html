@@ -17,17 +17,17 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <a class="navbar-brand" href="#">Menu</a>
+  <a class="navbar-brand" href="#">Home</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="/incharge/question">Question</a>
+        <a class="nav-link" href="/index/incharge/question">Question</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/incharge/exam">Exam</a>
+        <a class="nav-link" href="/index/incharge/exam">Exam</a>
       </li>    
     </ul>
   </div>  
@@ -110,12 +110,12 @@
           <div id="listQuestion" class="collapse" data-parent="#accordion">
             <div class="card-body" >
               <ol class="list-group" >
-                <a data-toggle = "modal" data-target="#questionModal" data-question = {{listQuestion}} class="list-group-item list-group-item-action" >
-                1. Question 1
+                {% for q in listQuestion %}
+                
+                <a data-toggle = "modal" data-target="#questionModal" data-id = {{q[0]}} data-content = '{{q[1]}}' data-answer = '{{q[2]}}' class="list-group-item list-group-item-action" >
+                Question {{ q[0] }}
                 </a>
-                <a data-toggle = "modal" data-target="#questionModal" data-question = {{listQuestion[1]}} class="list-group-item list-group-item-action">
-                2. Question 2
-                </a>
+                {% endfor %}
               </ol>
 
               <!-- Modal -->
@@ -123,12 +123,32 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title" id="questionModalLongTitle"></h5>
+                      <h5 class="modal-title" id="questionModalLongTitle"> Question Editor</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
                     </div>
                     <div class="modal-body">
+                      <div class = "card-holder">
+                        <label>Question:</label>
+                        <div class="card" id = "questionBox">
+                          <div class="card-body" id = "questionContent" contenteditable="True">
+                          </div>
+                        </div>
+                        <label>Answer:</label>
+                        <div class="card" id = "answerBox">
+                          <div class="card-body" id = "answer_1" contenteditable="True" style="display: none;">
+                          </div>
+                          <div class="card-body" id = "answer_2" contenteditable="True" style="display: none;">
+                          </div>
+                          <div class="card-body" id = "answer_3" contenteditable="True" style="display: none;">
+                          </div>
+                          <div class="card-body" id = "answer_4" contenteditable="True" style="display: none;">
+                          </div>
+                          <div class="card-body" id = "answer_5" contenteditable="True" style="display: none;">
+                          </div>
+                        </div>
+                      </div>
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -157,18 +177,28 @@
       }
     }
   }
-  function parseQuestion(question) {
-    question = [question.qId, question.qContent, question.qAnswer]
-    console.log(question)
-    return question
+  function createAnswerBox (answer, index) { 
+    var answerId = "answer_" + String(index)
+    $("#answerBox").append(
+      '<div class="card" id = "' + answerId + '"><div class="card-body" id = "' + answerId +"content" + '" contenteditable="True">' + answer +'</div></div>'
+    )
   }
   $('#questionModal').on('show.bs.modal', function (event) {
   var question = $(event.relatedTarget)
-  var data = question.data('question')
-  console.log(data)
+  var qId = question.data('id')
+  var qContent = question.data('content')
+  var qAnswer = JSON.parse(question.data('answer').replaceAll("\'", "\""))
   var modal = $(this)
-  modal.find('.modal-title').text('Question' + data[0])
-  modal.find('.modal-body').text(data[1])
+  $("#questionContent").text(qContent)
+  answerBox = document.getElementById("answerBox").getElementsByClassName('card-body')
+  console.log(answerBox[0])
+  for (i = 0; i < qAnswer.length; i++) {
+      answerBox[i].innerHTML = qAnswer[i]
+      answerBox[i].style.display = ""
+      for (j = 4; j > qAnswer.length - 1; j--){
+      	answerBox[j].style.display = "none"
+      }
+    }
 })
 </script>
 </body>
