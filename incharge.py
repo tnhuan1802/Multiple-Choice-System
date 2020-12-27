@@ -22,5 +22,12 @@ def examPage():
     q1 = ('1', "This is question 1",['A','B','C','D'])
     q2 = ('2', "This is question 2",['A','B','C'])
     listQuestion = [q1,q2]
+    listTest = [('001','191','Database System',listQuestion, None),('002','192','Principles Of Programming Language',listQuestion, None)]
+    unconfirmedTest = list(filter(lambda x : x[4] == None,listTest))
     role = 1
-    return render_template('/incharge/exam.html', listQuestion = listQuestion, role = role)
+    if request.method == 'POST':
+        form = request.form
+        subjectId = form['subject']
+        semesterId = form['semesterId']
+
+    return render_template('/incharge/exam.html', listQuestion = listQuestion, unconfirmedTest = unconfirmedTest, listTest = listTest, role = role)
