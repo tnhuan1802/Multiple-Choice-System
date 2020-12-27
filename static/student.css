@@ -75,35 +75,7 @@ body {
     border: 1px solid #ccc;
     box-sizing: border-box;
   }
-  .join{
-    background-color: white;
-    border: 1px solid black;
-    width: 80px;
-    height: 40px;
-    border-radius: 15px;
-    position: absolute;
-    top: 80%;
-    left: 50%;
-    -ms-transform: translateY(-80%);
-    transform: translateY(-80%);
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
-  }
-  /* The Close Button */
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: red;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
+
   /* Style the search box */
   #mySearch {
     width: 100%;
@@ -132,6 +104,7 @@ body {
     border: none;
     width: 100%;
     text-align: left;
+    outline: none;
   }
 
   #myMenu li button:hover {
@@ -173,3 +146,10 @@ body {
     height: 20%;
   }
   
+  .signin-image figure img{
+    height: 200px;
+  }
+
+  #testModal > .modal-dialog{
+    width: 75%;
+  }

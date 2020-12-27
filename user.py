@@ -10,5 +10,5 @@ class User:
         self.age = age
         self.role = role
         self.id = id
-        self.username = username
-        self.password = password
+        username = username
+        password = password

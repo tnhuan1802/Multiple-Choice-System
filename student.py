@@ -2,10 +2,9 @@ from flask import Flask, render_template, request, redirect, Blueprint
 from flask_mysqldb import MySQL
 from mysql import database
 from user import User
-
 student = Blueprint('student', __name__, template_folder='templates')
 
-@student.route("/HomePage/student", methods = ['GET', 'POST'])
+@student.route("/index/student", methods = ['GET', 'POST'])
 def studentHome():
     if request.method == "POST":
         info = request.form
@@ -16,7 +15,7 @@ def studentHome():
             anslist = genAnsList(questions)
             return render_template('student/student.html', choice = choice, questions = questions, anslist = anslist, name = User.name, id = User.id)
         if choice == 'submission':
-            return render_template('submission.html')
+            return render_template('student/submission.html')
         return render_template('student/student.html', choice = choice, name = User.name, id = User.id)
     return render_template('student/student.html', name = User.name, id = User.id)
 

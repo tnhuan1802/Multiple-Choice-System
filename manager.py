@@ -4,7 +4,7 @@ from mysql import database
 
 manager = Blueprint('manager', __name__, template_folder='templates')
 
-@manager.route("/HomePage/manager", methods = ['GET', 'POST'])
+@manager.route("/index/manager", methods = ['GET', 'POST'])
 def managerPage():
     choice = None
     if request.method == 'POST':
@@ -15,10 +15,10 @@ def managerPage():
             anslist = genAnsList(questions)
             return render_template('manager.html', choice = choice, questions = questions, anslist = anslist)
         if choice == 'process':
-            return redirect("/HomePage/manager/process")
+            return redirect("/index/manager/process")
     return render_template('manager/manager.html', choice = choice)
 
-@manager.route("/HomePage/manager/process", methods = ['GET', 'POST'])
+@manager.route("/index/manager/process", methods = ['GET', 'POST'])
 def process():
     questions = [("What is C++", "Language", "CCC", "Other"), ("What is Titanic", "HH Ship", "Italy Ship")]
     questions = questions*10
