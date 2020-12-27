@@ -2,42 +2,72 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: white;
   }
-  nav ol{height:500px;}
-  nav ol{overflow:hidden; overflow-y:scroll;}
+
   * {
     box-sizing: border-box;
   }
 
-  .col-sm-8, .col-sm-4{
-    background-color: #b3afa6;
-    border-radius: 5px;
-    height: 600px;
+  button[type="button"]{
+    outline: none;
   }
 
-  .col-sm-4{
-    background-color: #0099FF;
+  .rol-sm-12{
+    background-color: #b3afa6;
+    position: relative;
+    box-shadow: 10px 10px 5px grey;
+    border-radius: 5px;
+  }
+
+  .col-sm-6{
+    background-color: #b3afa6;
+    margin-top: 15px;
+    position: relative;
+    box-shadow: 10px 10px 5px grey;
+    border-radius: 5px;
+}
+
+  .rol-sm-12 ul{
+    list-style-type: none;
+    overflow: hidden;
+      position: relative;
+      left: 0;
+      top: relative;
+      width: 100%;
+  }
+
+  .rol-sm-12 ul li button{
+    width: 10%;
+  }
+ 
+  .exam{
+    flex: 65%;
+    padding: 15px;
+    position: relative;
   }
 
   .questions{
-    width: relative;
     overflow: visible;
-    height: 500px;
+    height: 520px;
   }
 
-  .submit{
-    margin: 6px 0px 0px 0px;
-    margin-left: 50%;
-    background-color: green;
-    border-radius: 5px;
-    color: white;
-    font-size: 15px;
+  .submit {
+    background-color: white;
+    width: 80px;
+    height: 40px;
+    border-radius: 15px;
+    margin: 0;
+    position: absolute;
+    top: 93%;
+    left: 50%;
+    -ms-transform: translateY(-93%);
+    transform: translateY(-80%);
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
   }
 
-  .submit:hover{
-    background-color: darkgreen;
-  }
   /* for model decore */
-  .modal {
+
+  .popup {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -56,7 +86,7 @@ body {
     display: none;
   }
   /* Modal Content/Box */
-  .modal-content {
+  .popup-content {
     background-color: #fefefe;
     margin: 10% auto; /* 15% from the top and centered */
     position: relative;
@@ -103,7 +133,16 @@ body {
     text-decoration: none;
     cursor: pointer;
   }
-  
+
+  /* Right column (page content) */
+  .right {
+    flex: 65%;
+    width: 100%;
+    display: block;
+    align-items: block-start;
+    height: relative;
+  }
+
   /* Style the search box */
   #mySearch {
     width: 100%;
@@ -113,6 +152,16 @@ body {
     background-color: white;
   }
   
+  #testSearch{
+    width: 35%;
+    font-size: 15px;
+    padding: 5px;
+    margin-left: 27%;
+    border: 3px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+  }
+
   /* Style the navigation menu inside the left column */
   #myMenu {
     list-style-type: none;
@@ -172,4 +221,105 @@ body {
     width: 15%; /* Could be more or less, depending on screen size */
     height: 20%;
   }
-  
+
+  #testList{
+    overflow: auto;
+    list-style-type: none;
+    margin-left: 30%;
+    overflow:hidden; overflow-y:scroll;
+    max-height: 300px;
+  }
+
+  #testList > li > div > button{
+    display: none;
+  }
+
+  #testList > li > .form-check:hover > button{
+    display: inline-block;
+  }
+
+  /* Base for label styling */
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+  position: absolute;
+  left: -9999px;
+}
+[type="checkbox"]:not(:checked) + label,
+[type="checkbox"]:checked + label {
+  position: relative;
+  padding-left: 1.95em;
+  cursor: pointer;
+}
+
+/* checkbox aspect */
+[type="checkbox"]:not(:checked) + label:before,
+[type="checkbox"]:checked + label:before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0;
+  width: 1.25em; height: 1.25em;
+  border: 2px solid #ccc;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.1);
+}
+/* checked mark aspect */
+[type="checkbox"]:not(:checked) + label:after,
+[type="checkbox"]:checked + label:after {
+  content: '\2713\0020';
+  position: absolute;
+  top: 0; left: 0;
+  font-size: 1.3em;
+  line-height: 0.8;
+  color: white;
+  background-color: green;
+  border: 2px solid green;
+  border-radius: 4px;
+  transition: all .2s;
+  font-family: 'Lucida Sans Unicode', 'Arial Unicode MS', Arial;
+}
+/* checked mark aspect changes */
+[type="checkbox"]:not(:checked) + label:after {
+  opacity: 0;
+  transform: scale(0);
+}
+[type="checkbox"]:checked + label:after {
+  opacity: 1;
+  transform: scale(1);
+}
+/* hover style just for information */
+label:hover:before {
+  border: 2px solid #4778d9!important;
+}
+
+.discard, .save{
+  margin-left: -8%;
+  color: white;
+  font-size: 15px;
+  width: relative;
+  padding: 8px 8px;
+  border-radius: 5px;
+
+  cursor: pointer;
+}
+
+.view {
+  height: relative;
+  background-color: blue;
+  color: white;
+}
+
+.navbar-nav > li > button{
+  background-color: inherit;
+  height: 50px;
+  color: grey;
+  border: none;
+}
+
+.navbar-nav > li > button:hover{
+  color: white;
+}
+
+#proTest{
+    border-color: black;
+}

@@ -3,17 +3,22 @@
 <head>
 <meta name="studentview" content="width=device-width, initial-scale=1">
 <link href = "../static/student.css" rel = "stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <form method="POST" action = "">
-<h2>Search Menu</h2>
-<p>Start to type for a specific category inside the search bar to "filter" the search options.</p>
+<h2><b>Name: {{name}}</b>
+<p><b>ID: {{id}}</b></p>
+</h2>
 
-<div class="row">
-  <div class="left" style="background-color: 	#0099FF;">
-    <h2>Menu</h2>
+<div class="container-fluid">
+  <div class="row">
+  <div class="col-sm-4" >
+    <h3>Menu</h3>
     <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
-    <ul id="myMenu">
+    <ul class="nav nav-pills nav-stacked" id="myMenu">
       <li><button type="button" id = "exam" onclick="popup()"><b>Exam</b></button></li>
       <li><button type="button" id = "review" onclick="popup()"><b>Review</b></button></li>
       <li><button type="button" id = "view-ans" onclick="popup()"><b>Answer</b></button></li>
@@ -23,7 +28,7 @@
     </ul>
   </div>
   {%if choice == "exam" or choice == "review" or choice == "view-ans" or choice == "view-paper"%}
-  <div class="right" style="background-color:#9999FF;">
+  <div class="col-sm-8" >
     {%if choice == "exam" %}
     <h2>Exam</h2>
     {%elif choice == "review"%}
@@ -55,7 +60,7 @@
     {%endif%}
   </div>
   {%elif choice == "total-grade"%}
-  <div class='right' style="background-color:#9999FF;"">
+  <div class='col-sm-8' >
     <h2>Total Grades</h2>
     <div class="questions" style="background-color: white;">
       <div class="table-area">
@@ -81,7 +86,7 @@
     </div>
   </div>
   {%else%}
-  <div class="right" style="background-color:#9999FF;">
+  <div class="col-sm-8">
     <h2>Page Content</h2>
     <p>Start to type for a specific category inside the search bar to "filter" the search options.</p>
     <p>Some text..Some text..Some text..Some text..Some text..Some text..Some text..Some text..</p>
@@ -101,6 +106,12 @@
     </div>
   </div>
   {%endif%}
+  <div class="container-fluid" style="text-align: center;">
+    <div class="imgcontainer" style="">
+      <img src="https://i.imgur.com/ln8PmsL.png" alt="Avatar" class="avatar"/>
+    </div>
+    <div><b>University of Technology</b></div>
+  </div>
   {%endif%}
 </div>
 <div id="myModal" class="modal">
@@ -120,7 +131,7 @@
     </div>
     <button type="submit" class="join" value="exam" name="choice">OK</button>
   </div>
-
+</div>
 </div>
 </form>
  <!-- for searching -->

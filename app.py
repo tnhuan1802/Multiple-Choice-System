@@ -24,11 +24,16 @@ def loggin():
         user = checkValidUser(userName, password)
         if len(user) == 0:
             return render_template('login.html', valid = False)
-        user = User(user[0][0], user[0][1], user[0][2], user[0][3], userName, password)
-        if user.role == 'Student':
+        User.name = user[0][0]
+        User.age = user[0][1]
+        User.role = user[0][2]
+        User.id = user[0][3]
+        User.username = userName
+        User.password = password
+        if User.role == 'Student':
             app.register_blueprint(student)
             return redirect('/HomePage/student')
-        if user.role == 'Manager':
+        if User.role == 'Manager':
             app.register_blueprint(manager)
             return redirect('/HomePage/manager')
     return render_template('login.html')
