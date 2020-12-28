@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="studentview" content="width=device-width, initial-scale=1">
+<link href = "../static/manager.css" rel = "stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+<form method="POST" action = "">
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/HomePage/manager">Home</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><button type="button" id = "process" onclick="popup()"><b>Process Test</b></button></li>
+      <li><button type="button" id = "view-grade" onclick="popup()"><b>Student Grades</b></button></li>
+    </ul>
+  </div>
+</nav>
+<h2>Search Menu</h2>
+<p>Start to type for a specific category inside the search bar to "filter" the search options.</p>
+<div id="myModal" class="popup">
+  <div class="popup-content" >
+    <span class="close">&times;</span>
+    <label for="course"><b>Course</b></label>
+    <input type="text" placeholder="Current course" name="course">
+    <div class='subject'>
+      <label for="subject"><b>Subject</b></label>
+      <input type="text" placeholder="Subject" name="subject">
+    </div>
+    <div class="test-code">
+      <label for="textCode"><b>Test Code</b></label>
+      <input type="text" placeholder="Text Code" name="textCode">
+    </div>
+    <button type="submit" class="join" value="process" name="choice">OK</button>
+  </div>
+
+</div>
+<div class="modal fade" id="testModal" role="dialog">
+  <div class="modal-dialog">
+  
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+    
+  </div>
+</div>
+</form>
+ <!-- for searching -->
+<script>
+  var proBtn = document.getElementById("process");
+  var viewBtn = document.getElementById("view-grade");
+  var span = document.getElementsByClassName("close")[0];
+  var modal = document.getElementById("myModal")
+  var modalContent = document.getElementsByClassName('popup-content')[0]
+  var testCode = document.getElementsByClassName('test-code')[0];
+  var join = document.getElementsByClassName('join')[0];
+  var subject = document.getElementsByClassName('subject')[0]
+  var subBtn = document.getElementsByClassName('submit')[0]
+
+  proBtn.onclick = function() {
+    modalContent.style.height = "25%";
+    testCode.style.display = 'none';
+    subject.style.display = 'inline';
+    join.style.top = '80%';
+    join.setAttribute('value', "process")
+    modal.style.display = "block";
+  }
+  viewBtn.onclick = function(){
+    modalContent.style.height = "33%";
+    testCode.style.display = 'inline';
+    subject.style.display = 'inline';
+    join.style.top = '80%';
+    join.setAttribute('value', "view-grade")
+    modal.style.display = "block";
+  }
+  span.onclick = function() {  
+    modal.style.display = "none";
+  }
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+</script>
+
+<script>
+  function changeSubject(value, id, target){
+    var subject = document.getElementsByClassName('btn btn-info')[0]
+    subject.innerHTML = String(value)
+  }
+</script>
+
+<script>
+    function myFunction(input, list, Type) {
+      var input, filter, ul, li, btn, i;
+      input = document.getElementById(input);
+      filter = input.value.toUpperCase();
+      ul = document.getElementById(list);
+      li = ul.getElementsByTagName("li");
+      for (i = 0; i < li.length; i++) {
+        btn = li[i].getElementsByTagName(Type)[0];
+        if (btn.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "";
+        } else {
+          li[i].style.display = "none";
+        }
+      }
+    }
+</script>
+<script>
+  function viewTest(value){
+    var title = document.getElementsByClassName('modal-title')[0]
+    title.innerHTML = String(value)
+  }
+</script>
+<script>
+  function changeDeny(){
+  var testList = document.getElementById('testList')
+  var checkList = testList.getElementsByTagName('li')
+  var checked = 0
+  for (i = 0; i < checkList.length; i++){
+    input = checkList[i].getElementsByTagName('div')[0].getElementsByTagName('input')[0]
+    if(input.checked === true) checked++
+  }
+  var divs = testList.getElementsByTagName('div')
+  console.log(divs)
+  divs[divs.length - 1].getElementsByTagName('span')[0].innerHTML = '<b>Deny: ' + String(checkList.length - checked) + '<br>Accept: ' + String(checked) + '</b>'
+  }
+  
+</script>
+</body>
+</html>

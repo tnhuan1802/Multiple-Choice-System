@@ -2,22 +2,9 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: white;
   }
-  nav ol{height:520px; width:100%;}
-  nav ol{overflow:hidden; overflow-y:scroll;}
+
   * {
     box-sizing: border-box;
-  }
-  
-  /* Create a column layout with Flexbox */
-  .row-main {
-    display: flex;
-  }
-  
-  /* Left column (menu) */
-  .left {
-    flex: 20%;
-    max-width: 100%;
-    padding: 15px 0 0 ;
   }
 
   button[type="button"]{
@@ -50,10 +37,6 @@ body {
 
   .rol-sm-12 ul li button{
     width: 10%;
-  }
-  
-  .left h2 {
-    padding-left: 8px;
   }
  
   .exam{
@@ -243,6 +226,8 @@ body {
     overflow: auto;
     list-style-type: none;
     margin-left: 30%;
+    overflow:hidden; overflow-y:auto;
+    max-height: 300px;
   }
 
   #testList > li > div > button{
@@ -333,4 +318,8 @@ label:hover:before {
 
 .navbar-nav > li > button:hover{
   color: white;
+}
+
+#proTest{
+    border-color: black;
 }

@@ -1,7 +1,13 @@
 class User:
-    username = None
-    password = None
-    def __init__(self, role, id, username, password):
+    name = ""
+    age = 0
+    role = ""
+    id = ""
+    username = ""
+    password = ""
+    def __init__(self, name, age, role, id, username, password):
+        self.name = name
+        self.age = age
         self.role = role
         self.id = id
         username = username

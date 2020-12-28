@@ -2,56 +2,41 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background-color: white;
   }
-  nav ol{height:520px; width:100%;}
+  nav ol{height:500px;}
   nav ol{overflow:hidden; overflow-y:scroll;}
   * {
     box-sizing: border-box;
   }
-  
-  /* Create a column layout with Flexbox */
-  .row {
-    display: flex;
+
+  .col-sm-8, .col-sm-4{
+    background-color: #b3afa6;
+    border-radius: 5px;
+    height: 600px;
   }
-  
-  /* Left column (menu) */
-  .left {
-    flex: 20%;
-    max-width: 100%;
-    padding: 15px 0;
-  }
-  
-  .left h2 {
-    padding-left: 8px;
-  }
- 
-  .exam{
-    flex: 65%;
-    padding: 15px;
-    position: relative;
+
+  .col-sm-4{
+    background-color: #0099FF;
   }
 
   .questions{
+    width: relative;
     overflow: visible;
-    height: 520px;
+    height: 500px;
   }
 
-  .submit {
-    background-color: white;
-    width: 80px;
-    height: 40px;
-    border-radius: 15px;
-    margin: 0;
-    position: absolute;
-    top: 93%;
-    left: 50%;
-    -ms-transform: translateY(-93%);
-    transform: translateY(-80%);
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
+  .submit{
+    margin: 6px 0px 0px 0px;
+    margin-left: 50%;
+    background-color: green;
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
   }
 
+  .submit:hover{
+    background-color: darkgreen;
+  }
   /* for model decore */
-
   .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -90,42 +75,7 @@ body {
     border: 1px solid #ccc;
     box-sizing: border-box;
   }
-  .join{
-    background-color: white;
-    border: 1px solid black;
-    width: 80px;
-    height: 40px;
-    border-radius: 15px;
-    position: absolute;
-    top: 80%;
-    left: 50%;
-    -ms-transform: translateY(-80%);
-    transform: translateY(-80%);
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
-  }
-  /* The Close Button */
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 20px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: red;
-    text-decoration: none;
-    cursor: pointer;
-  }
 
-  /* Right column (page content) */
-  .right {
-    flex: 65%;
-    padding: 15px;
-    position: relative;
-  }
-  
   /* Style the search box */
   #mySearch {
     width: 100%;
@@ -154,6 +104,7 @@ body {
     border: none;
     width: 100%;
     text-align: left;
+    outline: none;
   }
 
   #myMenu li button:hover {
@@ -193,4 +144,12 @@ body {
     border-radius: 15px;
     width: 15%; /* Could be more or less, depending on screen size */
     height: 20%;
+  }
+  
+  .signin-image figure img{
+    height: 200px;
+  }
+
+  #testModal > .modal-dialog{
+    width: 75%;
   }

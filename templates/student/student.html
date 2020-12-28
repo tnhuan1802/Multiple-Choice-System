@@ -3,27 +3,32 @@
 <head>
 <meta name="studentview" content="width=device-width, initial-scale=1">
 <link href = "../static/student.css" rel = "stylesheet">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <form method="POST" action = "">
-<h2>Search Menu</h2>
-<p>Start to type for a specific category inside the search bar to "filter" the search options.</p>
+<h3><b>Name: {{name}}</b>
+<p><b>ID: {{id}}</b></p>
+</h3>
 
-<div class="row">
-  <div class="left" style="background-color: 	#0099FF;">
-    <h2>Menu</h2>
+<div class="container-fluid">
+  <div class="row">
+  <div class="col-sm-4" >
+    <h3>Menu</h3>
     <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search.." title="Type in a category">
-    <ul id="myMenu">
-      <li><button type="button" id = "exam" onclick="popup()"><b>Exam</b></button></li>
-      <li><button type="button" id = "review" onclick="popup()"><b>Review</b></button></li>
-      <li><button type="button" id = "view-ans" onclick="popup()"><b>Answer</b></button></li>
-      <li><button type="button" id = "view-paper" onclick="popup()"><b>Exam paper</b></button></li>
-      <li><button type="button" id = "exam-grade" onclick="popup()"><b>View Exam Grades</b></button></li>
-      <li><button type="button" id = "total-grade" onclick="popup()"><b>View Total Grades</b></button></li>
+    <ul class="nav nav-pills nav-stacked" id="myMenu">
+      <li><button type="button" class="view" id="exam" data-toggle="modal" data-target="#testModal"><b>Exam</b></button></li>
+      <li><button type="button" class="view" id="review" data-toggle="modal" data-target="#testModal"><b>Review</b></button></li>
+      <li><button type="button" class="view" id="view-ans" data-toggle="modal" data-target="#testModal"><b>Answer</b></button></li>
+      <li><button type="button" class="view" id="view-paper" data-toggle="modal" data-target="#testModal"><b>Exam Paper</b></button></li>
+      <li><button type="button" class="view" id="exam-grade" data-toggle="modal" data-target="#testModal"><b>View Exam Grades</b></button></li>
+      <li><button type="button" class="view" id="total-grade" data-toggle="modal" data-target="#testModal"><b>View Total Grades</b></button></li>
     </ul>
   </div>
   {%if choice == "exam" or choice == "review" or choice == "view-ans" or choice == "view-paper"%}
-  <div class="right" style="background-color:#9999FF;">
+  <div class="col-sm-8" >
     {%if choice == "exam" %}
     <h2>Exam</h2>
     {%elif choice == "review"%}
@@ -37,11 +42,11 @@
     <nav>
     <ol>
       {% for q in questions %}
-      <li><b {%if choice == "exam"%}style="line-height: 3.0;" {%else%} style="line-height: normal;"{%endif%}>{{q[0]}}?</b></li>
+      <li><b {%if choice == "exam"%}style="line-height: 3.0;" {%else%} style="line-height: normal;"{%endif%}>{{q[0]}}</b></li>
         {% set i = loop.index %}
         {% for ans in q[1:] %}
           {% if choice == "exam" %}
-          <input type="radio" value="{{ans}}" name={{anslist[i]}} /> {{ans}}
+          <p><label><input type="radio" value="{{loop.index}}+{{anslist[i-1]}}" name={{choicelist[i-1]}} /> {{ans}}</label></p>
           {%else%}
           <p>{{ans}}</p>
           {%endif%}
@@ -55,7 +60,7 @@
     {%endif%}
   </div>
   {%elif choice == "total-grade"%}
-  <div class='right' style="background-color:#9999FF;"">
+  <div class='col-sm-8' >
     <h2>Total Grades</h2>
     <div class="questions" style="background-color: white;">
       <div class="table-area">
@@ -81,7 +86,7 @@
     </div>
   </div>
   {%else%}
-  <div class="right" style="background-color:#9999FF;">
+  <div class="col-sm-8">
     <h2>Page Content</h2>
     <p>Start to type for a specific category inside the search bar to "filter" the search options.</p>
     <p>Some text..Some text..Some text..Some text..Some text..Some text..Some text..Some text..</p>
@@ -102,9 +107,14 @@
   </div>
   {%endif%}
   {%endif%}
+  <div class="container-fluid" style="text-align: center;">
+    <div class="signin-image">
+      <figure><img src="https://i.ibb.co/3pQY64x/hcmut.png" alt="sign up image"></figure>
+  </div>
+    <div><b>University of Technology</b></div>
+  </div>
 </div>
 <div id="myModal" class="modal">
-
   <!-- Modal content -->
   <div class="modal-content" >
     <span class="close">&times;</span>
@@ -120,7 +130,31 @@
     </div>
     <button type="submit" class="join" value="exam" name="choice">OK</button>
   </div>
-
+</div>
+</div>
+<div class="modal fade" id="testModal" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <label for="course"><b>Course</b></label>
+      <input type="text" placeholder="Current course" name="course">
+      <div class='subject'>
+        <label for="subject"><b>Subject</b></label>
+        <input type="text" placeholder="Subject" name="subject">
+      </div>
+      <div class="test-code">
+        <label for="textCode"><b>Test Code</b></label>
+        <input type="text" placeholder="Text Code" name="textCode">
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-default" value="exam" name="choice" style="background-color: green; color: white;"><b>OK</b></button>
+      </div>
+    </div>
+    
+  </div>
 </div>
 </form>
  <!-- for searching -->
@@ -136,7 +170,7 @@
   var gradePopup = document.getElementById("grade-popup")
   var modalContent = document.getElementsByClassName('modal-content')[0]
   var testCode = document.getElementsByClassName('test-code')[0];
-  var join = document.getElementsByClassName('join')[0];
+  var join = document.getElementsByClassName('btn btn-default')[0];
   var subject = document.getElementsByClassName('subject')[0]
   var subBtn = document.getElementsByClassName('submit')[0]
 
@@ -146,7 +180,7 @@
     subject.style.display = 'inline';
     join.style.top = '80%';
     join.setAttribute('value', "exam")
-    modal.style.display = "block";
+    // modal.style.display = "block";
   }
   viewBtn.onclick = function(){
     modalContent.style.height = "33%";
@@ -154,7 +188,7 @@
     subject.style.display = 'inline';
     join.style.top = '80%';
     join.setAttribute('value', "review")
-    modal.style.display = "block";
+    //modal.style.display = "block";
   }
   ansBtn.onclick = function(){
     modalContent.style.height = "33%";
@@ -162,7 +196,7 @@
     subject.style.display = 'inline';
     join.style.top = '80%';
     join.setAttribute('value', "view-ans")
-    modal.style.display = "block";
+    //modal.style.display = "block";
   }
   paperBtn.onclick = function(){
     modalContent.style.height = "33%";
@@ -170,7 +204,7 @@
     subject.style.display = 'inline';
     join.style.top = '80%';
     join.setAttribute('value', "view-paper")
-    modal.style.display = "block";
+    //modal.style.display = "block";
   }
   viewGradeBtn.onclick = function(){
     modalContent.style.height = "25%";
@@ -178,7 +212,7 @@
     subject.style.display = 'inline';
     join.style.top = '80%';
     join.setAttribute('value', "exam-grade")
-    modal.style.display = "block";
+    //modal.style.display = "block";
   }
   viewTotalBtn.onclick = function(){
     modalContent.style.height = "20%";
@@ -186,7 +220,7 @@
     subject.style.display = 'none';
     join.style.top = '70%';
     join.setAttribute('value', "total-grade")
-    modal.style.display = "block";
+    //modal.style.display = "block";
   }
   span.onclick = function() {  
     modal.style.display = "none";
