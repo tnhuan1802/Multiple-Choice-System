@@ -9,10 +9,11 @@ app = Flask(__name__)
 
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'Maestro1802'
-app.config['MYSQL_DB'] = 'MyDB'
+app.config['MYSQL_PASSWORD'] = '123'
+app.config['MYSQL_DB'] = 'mc_database'
 
 mysql = MySQL(app)
+database.mysql = mysql
 @app.route("/index", methods = ['GET', 'POST'])
 def login():
     if request.method == "POST":
@@ -25,7 +26,8 @@ def login():
         user = checkValidUser(userName, password)
         if len(user) == 0:
             return render_template('login.html', valid = False)
-        user = User(user[0][0], user[0][1], user[0][2], user[0][3], userName, password)
+        user = User(user[0][0], user[0][1], userName, password)
+        print(user.role)
         if user.role == 'Student':
             app.register_blueprint(student)
             return redirect('/index/student')
