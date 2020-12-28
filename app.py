@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = 'trannguyen121223'
-app.config['MYSQL_DB'] = 'fabric_database'
+app.config['MYSQL_DB'] = 'mc_database'
 
 mysql = MySQL(app)
 database.mysql = mysql
@@ -25,11 +25,10 @@ def login():
         User.password = password
         user = checkValidUser(userName, password)
         if len(user) == 0:
-            return render_template('login.html', valid = False)
-        User.name = user[0][0]
-        User.age = user[0][1]
-        User.role = user[0][2]
-        User.id = user[0][3]
+            return redirect('/index/incharge')
+            # return render_template('login.html', valid = False)
+        User.role = user[0][0]
+        User.id = user[0][1]
         User.username = userName
         User.password = password
         if User.role == 'Student':
@@ -41,6 +40,7 @@ def login():
         if User.role == 'Manager':
             app.register_blueprint(manager)
             return redirect('/index/manager')
+        
     return render_template('login.html')
 
 def checkValidUser(userName, password):

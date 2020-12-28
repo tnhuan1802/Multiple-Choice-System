@@ -42,11 +42,11 @@
     <nav>
     <ol>
       {% for q in questions %}
-      <li><b {%if choice == "exam"%}style="line-height: 3.0;" {%else%} style="line-height: normal;"{%endif%}>{{q[0]}}?</b></li>
+      <li><b {%if choice == "exam"%}style="line-height: 3.0;" {%else%} style="line-height: normal;"{%endif%}>{{q[0]}}</b></li>
         {% set i = loop.index %}
         {% for ans in q[1:] %}
           {% if choice == "exam" %}
-          <input type="radio" value="{{ans}}" name={{anslist[i]}} /> {{ans}}
+          <p><label><input type="radio" value="{{loop.index}}+{{anslist[i-1]}}" name={{choicelist[i-1]}} /> {{ans}}</label></p>
           {%else%}
           <p>{{ans}}</p>
           {%endif%}

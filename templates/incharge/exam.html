@@ -4,6 +4,7 @@
   <title>Multiple Choice System</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href = "/static/exam.css" rel = "stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -119,65 +120,6 @@
                   </form>
           </div>
         </div>
-        <!--Confirm test-->
-        <div class="card" style="background-color: #faf9f7;">
-          <div class="card-header">
-            <a class="collapsed card-link" data-toggle="collapse" href="#confirmTest">
-            Confirm Test
-            </a>
-          </div>
-          <div id="confirmTest" class="collapse" data-parent="#accordion">
-            <div class="card-body" >
-              <ol class="list-group" >
-                {% for test in unconfirmedTest %}
-                <a data-toggle = "modal" data-target="#testModal" data-testcode = '{{test[0]}}' data-semesterid = '{{test[1]}}' data-subject = '{{test[2]}}' data-list-question = '{{test[3]}}' data-is-confirmed = '{{test[4]}}' class="list-group-item list-group-item-action" ><b>Subject: </b>{{test[2]}} <b>Semester: </b>{{test[1]}} <b>Testcode: </b>{{ test[0] }} 
-                <input id = "checkbox-test-{{ loop.index }}" name = "checkbox-test-{{ loop.index }}" class="float-right" type="checkbox">
-                </a>
-                
-                {% endfor %}
-              </ol>
-
-              <!-- Modal -->
-              <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-labelledby="questionModalTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="questionModalLongTitle"> Question Editor</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <div class = "card-holder">
-                        <label>Question:</label>
-                        <div class="card" id = "questionBox">
-                          <div class="card-body" id = "questionContent" contenteditable="True">
-                          </div>
-                        </div>
-                        <label>Answer:</label>
-                        <div class="card" id = "answerBox">
-                          <div class="card-body" id = "answer_1" contenteditable="True" style="display: none;">
-                          </div>
-                          <div class="card-body" id = "answer_2" contenteditable="True" style="display: none;">
-                          </div>
-                          <div class="card-body" id = "answer_3" contenteditable="True" style="display: none;">
-                          </div>
-                          <div class="card-body" id = "answer_4" contenteditable="True" style="display: none;">
-                          </div>
-                          <div class="card-body" id = "answer_5" contenteditable="True" style="display: none;">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary" onclick="chooseTest()">Choose</button>
-      </div>
-    </div>
-  </div>
-</div>
-            </div>
-        </div>
 
         <!--View a specific test-->
         <div class="card" style="background-color: #faf9f7;">
@@ -205,6 +147,46 @@
                     <br>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form>  
+            </div>
+          </div>
+          <div class="card" style="background-color: #faf9f7;">
+            <div class="card-header">
+              <a class="collapsed card-link" data-toggle="collapse" href="#confirmTest">Confirm Test</a>
+            </div>
+            <div id="confirmTest" class="collapse" data-parent="#accordion">
+              <div class="card-body">
+                <select class="selectpicker" name = "subject">
+                  <option selected = "selected" name = "subject" value = "0">Subject</option>
+                  <option value = "Database System" name = "subject" >Database System</option>
+                  <option name = "subject" value = "Principles of Programming Language">Principles of Programming Language</option>
+                  <option name = "subject" value = "Computer Network">Computer Network</option>
+                </select>
+              <br>
+              <br>
+              <button type="submit" class="btn btn-primary">Submit</button>
+              <br> <br>
+              <div class="row">
+              <div class="col-sm-6">
+                <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#proTest" 
+                style="margin-left: auto; width: 100%; background-color: #b3afa6; border: none; outline: none;">Processed Test</button>
+                <ul id = "proTest" class="collapse>" style="width: 100%; text-align: left; background-color: white; border-radius: 5px;">
+                  <input type="text" id="testSearch" onkeyup="myFunction('testSearch', 'testList', 'label')" placeholder="Search Test" title="Type in a category">
+                  <button type="submit"><i class="fa fa-search"></i></button>
+                  <ul id="testList" onchange="changeDeny()">
+                    <li><div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="1" name="option" value=1 checked> 
+                        <label class="form-check-label" for="1">Option 1</label>
+                    </div></li>
+                    <div><br></div>
+                    <div class="text-right" style="width: 100%;">
+                    <span style="float: right; padding-right: 2em;"><b>Deny: 0 <br>Accept: 0</b></span></div>
+                  </ul>  
+                  <div style="width: 100%; text-align: left; padding-top: 5px;">
+                  <button type="button" class="discard" style="float: left; background-color: red;">Discard</button>
+                  <button type="button" class="btn btn-primary" style="float: right;">Save</button></div>
+                </ul>
+              </div></div>
+              </div>
             </div>
           </div>
           {% if test %}
@@ -263,6 +245,38 @@
     }
 })
 
+</script>
+<script>
+  function myFunction(input, list, Type) {
+    var input, filter, ul, li, btn, i;
+    input = document.getElementById(input);
+    filter = input.value.toUpperCase();
+    ul = document.getElementById(list);
+    li = ul.getElementsByTagName("li");
+    for (i = 0; i < li.length; i++) {
+      btn = li[i].getElementsByTagName(Type)[0];
+      if (btn.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = "";
+      } else {
+        li[i].style.display = "none";
+      }
+    }
+  }
+</script>
+<script>
+  function changeDeny(){
+  var testList = document.getElementById('testList')
+  var checkList = testList.getElementsByTagName('li')
+  var checked = 0
+  for (i = 0; i < checkList.length; i++){
+    input = checkList[i].getElementsByTagName('div')[0].getElementsByTagName('input')[0]
+    if(input.checked === true) checked++
+  }
+  var divs = testList.getElementsByTagName('div')
+  console.log(divs)
+  divs[divs.length - 1].getElementsByTagName('span')[0].innerHTML = '<b>Deny: ' + String(checkList.length - checked) + '<br>Accept: ' + String(checked) + '</b>'
+  }
+  
 </script>
 </body>
 </html>
