@@ -2,31 +2,32 @@ from flask import Flask, render_template, request, redirect, Blueprint
 from flask_mysqldb import MySQL
 from mysql import database
 from user import User
+from exam import Exam
 student = Blueprint('student', __name__, template_folder='templates')
 
 
 
 @student.route("/index/student", methods = ['GET', 'POST'])
 def studentHome():
-    questions = anslist = composeID = testcode = questions = choicelist = None
+    #questions = anslist = composeID = testcode = questions = choicelist = None
     if request.method == "POST":
         info = request.form
         choice = info['choice']
         if choice == 'exam':
             questions = getExam()
-            anslist = questions[1]
-            composeID = questions[2]
-            testcode = questions[3]
-            questions = questions[0]
-            choicelist = genAnsList(questions)
-            return render_template('student/student.html', choice = choice, questions = questions, choicelist = choicelist, anslist= anslist, name = User.name, id = User.id)
+            Exam.anslist = questions[1]
+            Exam.composeID = questions[2]
+            Exam.testcode = questions[3]
+            Exam.questions = questions[0]
+            Exam.choicelist = genAnsList(Exam.questions)
+            return render_template('student/student.html', choice = choice, questions = Exam.questions, choicelist = Exam.choicelist, anslist= Exam.anslist, name = User.name, id = User.id)
         if choice == 'total-grade' or choice == 'review' or choice == 'view-ans' or choice == "view-paper" or choice == "exam-grade":
             questions = [("What is C++", "Language", "CCC", "Other"), ("What is Titanic", "HH Ship", "Italy Ship")]
             questions = questions
             anslist = genAnsList(questions)
             return render_template('student/student.html', choice = choice, questions = questions, anslist = anslist, name = User.name, id = User.id)
         if choice == 'submission':
-            marking(info, anslist, choicelist, testcode, composeID)
+            marking(info, Exam.anslist, Exam.choicelist, Exam.testcode, Exam.composeID)
             return render_template('student/submission.html')
         return render_template('student/student.html', choice = choice, name = User.name, id = User.id)
     return render_template('student/student.html', name = User.name, id = User.id)
@@ -49,6 +50,7 @@ def getExam():
     cur = database.mysql.connection.cursor()
     cur.callproc('participateExam', ['Database System', '2020-12-24', '1'])
     data = cur.fetchall()
+    cur.execute('insert into Attends values(%s, %s, %s)', ('2020-12-24', 'Database System', User.id))
     cur.close()
     database.mysql.connection.commit()
     q = []
@@ -66,10 +68,10 @@ def marking(dict, anslist, choicelist, testcode, composeID):
     grades = 0
     for i in choicelist:
         q_idx = choicelist.index(i)
-        if int(dict[i][-1]) == anslist[q_idx]:
-            grades = 10/len(anslist)
+        if int(dict[i][-1]) == 1:
+            grades = 10/len(choicelist)
         cur = database.mysql.connection.cursor()
-        cur.execute("INSERT INTO Do Values(%s, %s, %s, %s, %s, %s)", (q_idx, int(dict[i][0], User.id, testcode, composeID, grades)))
+        cur.execute("INSERT INTO Do Values(%s, %s, %s, %s, %s, %s)", (q_idx, int(dict[i][0]), User.id, testcode, composeID, grades))
         data = cur.fetchall()
         database.mysql.connection.commit()
         cur.close()
